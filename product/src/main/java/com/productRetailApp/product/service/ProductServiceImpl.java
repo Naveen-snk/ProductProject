@@ -39,18 +39,6 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> getProductBySearch(String productName, double minPrice, double maxPrice, Date minPostedDate,
 			Date maxPostedDate) {
 
-		//List<Product> productList = productRepository.findAll();
-
-//		List<Product> productListFilterByPrice = productList.stream().filter(n -> n.getProductName() == productName)
-//				.toList();
-//
-//		List<Product> productListFilterByDate = productListFilterByPrice.stream()
-//				.filter(n -> (n.getPrice() >= minPrice || n.getPrice() <= maxPrice)).toList();
-//
-//		List<Product> productListFinal = productListFilterByDate.stream()
-//				.filter(n -> (n.getPostedDate().after(minPostedDate) || n.getPostedDate().before(maxPostedDate)))
-//				.toList();
-
 		return productRepository.getProductsBySearch(productName, minPrice, maxPrice, minPostedDate, maxPostedDate);
 	}
 
