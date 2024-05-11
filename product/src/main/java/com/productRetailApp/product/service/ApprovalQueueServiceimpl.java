@@ -26,6 +26,10 @@ public class ApprovalQueueServiceimpl implements ApprovalQueueService {
 		this.productRepository = productRepository;
 	}
 
+	/*
+	 * To Get all the products in the approval queue, sorted by request date
+	 * earliest first.
+	 */
 	@Override
 	public List<ApprovalQueue> getAllApprovalQueueProducts() {
 
@@ -36,19 +40,26 @@ public class ApprovalQueueServiceimpl implements ApprovalQueueService {
 
 		return sortedList;
 	}
-
+	
+	//To find ApprovalQueue products by the approvalId
 	@Override
 	public Optional<ApprovalQueue> findProductApprovalbyId(int id) {
 
 		return approvalQueueRepository.findById(id);
 	}
 
+	//To Delete ApprovalQueue products by approvalId
 	@Override
 	public void deleteProductApproval(int id) {
 
 		approvalQueueRepository.deleteById(id);
 	}
-
+	
+	/*
+	 * To approve a product from the approval queue. The product state is
+	 * updated, and it is removed from the approval queue.
+	 */
+	
 	@Override
 	public void updateInProductAfterApprove(int id) {
 

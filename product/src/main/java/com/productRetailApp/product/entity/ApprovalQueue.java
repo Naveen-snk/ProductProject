@@ -27,6 +27,19 @@ public class ApprovalQueue {
 
 	@Column(name = "price")
 	private double price;
+	
+	public ApprovalQueue() {}
+
+	public ApprovalQueue(int approvalId, String productName, double price, LocalDateTime postedDate, Date approvalDate,
+			String status) {
+		super();
+		this.approvalId = approvalId;
+		this.productName = productName;
+		this.price = price;
+		this.postedDate = postedDate;
+		this.approvalDate = approvalDate;
+		this.status = status;
+	}
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "posted_date")

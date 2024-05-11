@@ -43,6 +43,17 @@ public class Product {
 //	@JoinColumn(name= "approval_id")
 //	@JsonBackReference
 //	private int approvalId;
+	
+	public Product() {}
+
+	public Product(int productId, String productName, double price, Date postedDate, String status) {
+		super();
+		this.productId = productId;
+		this.productName = productName;
+		this.price = price;
+		this.postedDate = postedDate;
+		this.status = status;
+	}
 
 	public int getProductId() {
 		return productId;
