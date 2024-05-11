@@ -22,8 +22,8 @@ import com.productRetailApp.product.entity.Product;
 import com.productRetailApp.product.service.ApprovalQueueService;
 import com.productRetailApp.product.service.ProductService;
 
-@RestController
-@RequestMapping("/api")
+@RestController 
+@RequestMapping("/api/products")
 public class ProductController {
 
 	private ProductService productService;
@@ -36,7 +36,7 @@ public class ProductController {
 		this.approvalQueueService = approvalQueueService;
 	}
 
-	@GetMapping("/products")
+	@GetMapping()
 	public List<Product> getProducts() {
 
 		if (productService.getActiveProducts().isEmpty())
@@ -45,7 +45,7 @@ public class ProductController {
 			return productService.getActiveProducts();
 	}
 
-	@GetMapping("/products/search")
+	@GetMapping("/search")
 	public List<Product> getProductBySearch(@RequestParam(required = false) String productName,
 			@RequestParam(required = false) double minPrice, @RequestParam(required = false) double maxPrice,
 			@RequestParam(required = false) Date minPostedDate, @RequestParam(required = false) Date maxPostedDate) {
@@ -53,7 +53,7 @@ public class ProductController {
 		return productService.getProductBySearch(productName, minPrice, maxPrice, minPostedDate, maxPostedDate);
 	}
 
-	@PostMapping("/products")
+	@PostMapping()
 	public ResponseEntity<Product> saveProduct(@RequestBody Product product) {
 
 		if (product.getPrice() > 10000) {
@@ -68,7 +68,7 @@ public class ProductController {
 
 	}
 
-	@PutMapping("/products/{productId}")
+	@PutMapping("/{productId}")
 	public Product updateProduct(@RequestBody Product product, @PathVariable int productId) {
 
 		Optional<Product> theProduct = productService.findProductById(productId);
@@ -81,7 +81,7 @@ public class ProductController {
 		}
 	}
 
-	@DeleteMapping("/products/{productId}")
+	@DeleteMapping("/{productId}")
 	public ResponseEntity<Product> deleteProduct(@PathVariable int productId) {
 
 		if (productService.findProductById(productId).isPresent() || productId < 0) {
@@ -93,12 +93,12 @@ public class ProductController {
 
 	}
 
-	@GetMapping("/products/approval-queue")
+	@GetMapping("/approval-queue")
 	public List<ApprovalQueue> getAllApprovalQueueProducts() {
 		return approvalQueueService.getAllApprovalQueueProducts();
 	}
 
-	@PutMapping("/products/approval-queue/{approvalId}/approve")
+	@PutMapping("/approval-queue/{approvalId}/approve")
 	public ResponseEntity<ApprovalQueue> toApproveProductInQueue(@PathVariable int approvalId) {
 
 		if (approvalQueueService.findProductApprovalbyId(approvalId).isPresent() || approvalId < 0) {
@@ -115,7 +115,7 @@ public class ProductController {
 		}
 	}
 
-	@PutMapping("/products/approval-queue/{approvalId}/reject")
+	@PutMapping("/approval-queue/{approvalId}/reject")
 	public ResponseEntity<ApprovalQueue> toRejectProductInQueue(@PathVariable int approvalId) {
 
 		if (approvalQueueService.findProductApprovalbyId(approvalId).isPresent() || approvalId < 0) {

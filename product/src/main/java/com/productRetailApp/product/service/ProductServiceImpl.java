@@ -12,7 +12,7 @@ import com.productRetailApp.product.entity.Product;
 import com.productRetailApp.product.repository.ApprovalQueueRepository;
 import com.productRetailApp.product.repository.ProductRepository;
 
-@Service
+@Service 
 public class ProductServiceImpl implements ProductService {
 
 	private ProductRepository productRepository;
@@ -39,19 +39,19 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> getProductBySearch(String productName, double minPrice, double maxPrice, Date minPostedDate,
 			Date maxPostedDate) {
 
-		List<Product> productList = productRepository.findAll();
+		//List<Product> productList = productRepository.findAll();
 
-		List<Product> productListFilterByPrice = productList.stream().filter(n -> n.getProductName() == productName)
-				.toList();
+//		List<Product> productListFilterByPrice = productList.stream().filter(n -> n.getProductName() == productName)
+//				.toList();
+//
+//		List<Product> productListFilterByDate = productListFilterByPrice.stream()
+//				.filter(n -> (n.getPrice() >= minPrice || n.getPrice() <= maxPrice)).toList();
+//
+//		List<Product> productListFinal = productListFilterByDate.stream()
+//				.filter(n -> (n.getPostedDate().after(minPostedDate) || n.getPostedDate().before(maxPostedDate)))
+//				.toList();
 
-		List<Product> productListFilterByDate = productListFilterByPrice.stream()
-				.filter(n -> (n.getPrice() >= minPrice || n.getPrice() <= maxPrice)).toList();
-
-		List<Product> productListFinal = productListFilterByDate.stream()
-				.filter(n -> (n.getPostedDate().after(minPostedDate) || n.getPostedDate().before(maxPostedDate)))
-				.toList();
-
-		return productListFinal;
+		return productRepository.getProductsBySearch(productName, minPrice, maxPrice, minPostedDate, maxPostedDate);
 	}
 
 	@Override
@@ -84,6 +84,7 @@ public class ProductServiceImpl implements ProductService {
 			productApproval.setApprovalDate(product.getPostedDate());
 			productApproval.setStatus("WAITING");
 			approvalQueueRepository.save(productApproval);
+			product.setStatus("WAITING");
 			return product;
 		} else {
 			return productRepository.save(product);

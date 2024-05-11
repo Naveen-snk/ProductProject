@@ -48,14 +48,6 @@ public class Product {
 		return productId;
 	}
 
-//	public int getApprovalId() {
-//		return approvalId;
-//	}
-//
-//	public void setApprovalId(int approvalId) {
-//		this.approvalId = approvalId;
-//	}
-
 	public void setProductId(int productId) {
 		this.productId = productId;
 	}

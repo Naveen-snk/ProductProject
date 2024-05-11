@@ -15,9 +15,10 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	@Query("from Product Where status = 'APPROVED' order by postedDate DESC")
 	public List<Product> getActiveProducts();
 
-//	@Query("from Product Where (productName is null or :productName)"
-//			+ " AND (price is null or >= :minPrice OR price <= :maxPrice")
-//	public List<Product> getProductsBySearch(String productName, double minPrice, double maxPrice, Date minPostedDate,
-//			Date maxPostedDate);
+	@Query(value = "select * from product Where product_name = :productName" + " UNION"
+			+ " select * from product where price BETWEEN :minPrice AND :maxPrice" + " UNION"
+			+ " select * from product where posted_date BETWEEN :minPostedDate AND :maxPostedDate", nativeQuery = true)
+	public List<Product> getProductsBySearch(String productName, double minPrice, double maxPrice, Date minPostedDate,
+			Date maxPostedDate);
 
 }
